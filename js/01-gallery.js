@@ -1,12 +1,14 @@
-import { galleryItems } from './gallery-items.js';
+import { galleryItems } from "./gallery-items.js";
 // Change code below this line
 const listGallery = document.querySelector(`.gallery`);
 const itemGallery = createMarkup(galleryItems);
-listGallery.insertAdjacentHTML('beforeend', itemGallery);
-listGallery.addEventListener('click', handlerClick);
-  
+listGallery.insertAdjacentHTML("beforeend", itemGallery);
+listGallery.addEventListener("click", handlerClick);
+
 function createMarkup(arr) {
-    return arr.map(({ preview, original, description }) => `
+  return arr
+    .map(
+      ({ preview, original, description }) => `
     <li class="gallery__item">
   <a class="gallery__link" href="${original}">
     <img
@@ -16,31 +18,33 @@ function createMarkup(arr) {
       alt="${description}"
     />
   </a>
-</li>`).join('')
+</li>`
+    )
+    .join("");
 }
 
 let openPhoto = false;
 let bigger;
 function handlerClick(event) {
-    event.preventDefault();
-    const closed = event.target;
-    if (closed.classList.contains('gallery__image')) {
-        const linkImage = closed.dataset.source;
-        bigger = basicLightbox.create(`
+  event.preventDefault();
+  const closed = event.target;
+  if (closed.classList.contains("gallery__image")) {
+    const linkImage = closed.dataset.source;
+    bigger = basicLightbox.create(`
         <img src="${linkImage}" width="800" height="600">
         `);
-        bigger.show();
-        openPhoto = true;
-    }
-    document.addEventListener('keydown', keyDown);
+    bigger.show();
+    openPhoto = true;
+  }
+  document.addEventListener("keydown", keyDown);
 }
 
 function keyDown(event) {
-     if (event.key === "Escape" || openPhoto) {
- bigger.close();
-        openPhoto = false;
-        document.removeEventListener('keydown', keyDown);
- }
+  if (event.key === "Escape" || openPhoto) {
+    bigger.close();
+    openPhoto = false;
+    document.removeEventListener("keydown", keyDown);
+  }
 }
 
 console.log(galleryItems);
